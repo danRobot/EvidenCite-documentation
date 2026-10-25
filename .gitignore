@@ -105,4 +105,4 @@ spec_dataset_*.md
 *-eps-converted-to.pdf
 
 # Ignorar el PDF compilado del artículo (opcional)
-docs/informe/*.pdf
+*.pdf
