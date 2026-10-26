@@ -1,0 +1,155 @@
+% Referencias del informe EvidenCite.
+% Cada entrada se tomó o se verificó en la página indicada en `url`:
+% - ACL Anthology (multicite, scibert) y mlanthology (lora, qlora, hagele): BibTeX exportado por el sitio,
+%   con la clave cambiada a la que usa el informe y sin el resumen. En hagele, mlanthology parte mal el
+%   apellido «Ben Allal»; se corrigió según la página de NeurIPS.
+% - Thinking Machines (schulman): BibTeX publicado al final del artículo; la URL pasó de `note` a `url`.
+% - arXiv (unarxive, qwen3, yousefiramandi, minicpm, lee, dodge), IDEAS/RePEc (lyu) y GitHub (repo):
+%   entradas armadas a partir de los metadatos de esas páginas.
+
+@inproceedings{multicite,
+    title = "{M}ulti{C}ite: Modeling realistic citations requires moving beyond the single-sentence single-label setting",
+    author = "Lauscher, Anne  and
+      Ko, Brandon  and
+      Kuehl, Bailey  and
+      Johnson, Sophie  and
+      Cohan, Arman  and
+      Jurgens, David  and
+      Lo, Kyle",
+    editor = "Carpuat, Marine  and
+      de Marneffe, Marie-Catherine  and
+      Meza Ruiz, Ivan Vladimir",
+    booktitle = "Proceedings of the 2022 Conference of the {N}orth {A}merican Chapter of the {A}ssociation for {C}omputational {L}inguistics: Human Language Technologies",
+    month = jul,
+    year = "2022",
+    address = "Seattle, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.naacl-main.137/",
+    doi = "10.18653/v1/2022.naacl-main.137",
+    pages = "1875--1889"
+}
+
+@inproceedings{unarxive,
+    title = "{unarXive} 2022: All {arXiv} Publications Pre-Processed for {NLP}, Including Structured Full-Text and Citation Network",
+    author = "Saier, Tarek and Krause, Johan and F{\"a}rber, Michael",
+    booktitle = "2023 ACM/IEEE Joint Conference on Digital Libraries (JCDL)",
+    year = "2023",
+    doi = "10.1109/JCDL57899.2023.00020",
+    note = "arXiv:2303.14957",
+    url = "https://arxiv.org/abs/2303.14957"
+}
+
+@article{lyu,
+    title = "The classification of citing motivations: a meta-synthesis",
+    author = "Lyu, Dongqing and Ruan, Xuanmin and Xie, Juan and Cheng, Ying",
+    journal = "Scientometrics",
+    volume = "126",
+    number = "4",
+    pages = "3243--3264",
+    month = apr,
+    year = "2021",
+    doi = "10.1007/s11192-021-03908-z",
+    url = "https://doi.org/10.1007/s11192-021-03908-z"
+}
+
+@inproceedings{scibert,
+    title = "{S}ci{BERT}: A Pretrained Language Model for Scientific Text",
+    author = "Beltagy, Iz  and
+      Lo, Kyle  and
+      Cohan, Arman",
+    editor = "Inui, Kentaro  and
+      Jiang, Jing  and
+      Ng, Vincent  and
+      Wan, Xiaojun",
+    booktitle = "Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing ({EMNLP}-{IJCNLP})",
+    month = nov,
+    year = "2019",
+    address = "Hong Kong, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/D19-1371/",
+    doi = "10.18653/v1/D19-1371",
+    pages = "3615--3620"
+}
+
+@inproceedings{lora,
+  title     = {{LoRA: Low-Rank Adaptation of Large Language Models}},
+  author    = {Hu, Edward J and Shen, Yelong and Wallis, Phillip and Allen-Zhu, Zeyuan and Li, Yuanzhi and Wang, Shean and Wang, Lu and Chen, Weizhu},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2022},
+  url       = {https://mlanthology.org/iclr/2022/hu2022iclr-lora/}
+}
+
+@misc{repo,
+    author = "{EvidenCite}",
+    title = "Código y notebooks experimentales",
+    howpublished = "Repositorio del proyecto",
+    year = "2026",
+    url = "https://github.com/d-leandro/EvidenCite/tree/main/notebooks",
+    note = "Resultados contrastados con \texttt{02\_scibert\_ab.ipynb}; conteos auditados sobre los JSONL inicial y ampliado suministrados para este avance"
+}
+
+@misc{yousefiramandi,
+    title = "Fine-Tuning Causal {LLMs} for Text Classification: Embedding-Based vs. Instruction-Based Approaches",
+    author = "Yousefiramandi, Amirhossein and Cooney, Ciaran",
+    year = "2025",
+    note = "arXiv:2512.12677",
+    url = "https://arxiv.org/abs/2512.12677"
+}
+
+@misc{qwen3,
+    title = "{Qwen3} Technical Report",
+    author = "Yang, An and Li, Anfeng and Yang, Baosong and Zhang, Beichen and Hui, Binyuan and Zheng, Bo and Yu, Bowen and Gao, Chang and Huang, Chengen and Lv, Chenxu and others",
+    year = "2025",
+    note = "arXiv:2505.09388",
+    url = "https://arxiv.org/abs/2505.09388"
+}
+
+@article{schulman,
+  author = {John Schulman and {Thinking Machines Lab}},
+  title = {{LoRA} Without Regret},
+  journal = {Thinking Machines Lab: Connectionism},
+  year = {2025},
+  url = {https://thinkingmachines.ai/blog/lora/},
+  doi = {10.64434/tml.20250929}
+}
+
+@inproceedings{qlora,
+  title     = {{QLoRA: Efficient Finetuning of Quantized LLMs}},
+  author    = {Dettmers, Tim and Pagnoni, Artidoro and Holtzman, Ari and Zettlemoyer, Luke},
+  booktitle = {Neural Information Processing Systems},
+  year      = {2023},
+  url       = {https://mlanthology.org/neurips/2023/dettmers2023neurips-qlora/}
+}
+
+@misc{minicpm,
+    title = "{MiniCPM}: Unveiling the Potential of Small Language Models with Scalable Training Strategies",
+    author = "Hu, Shengding and Tu, Yuge and Han, Xu and He, Chaoqun and Cui, Ganqu and Long, Xiang and Zheng, Zhi and Fang, Yewei and Huang, Yuxiang and Zhao, Weilin and others",
+    year = "2024",
+    note = "arXiv:2404.06395",
+    url = "https://arxiv.org/abs/2404.06395"
+}
+
+@inproceedings{hagele,
+  title     = {{Scaling Laws and Compute-Optimal Training Beyond Fixed Training Durations}},
+  author    = {H{\"a}gele, Alexander and Bakouch, Elie and Kosson, Atli and Ben Allal, Loubna and Von Werra, Leandro and Jaggi, Martin},
+  booktitle = {Neural Information Processing Systems},
+  year      = {2024},
+  doi       = {10.52202/079017-2427},
+  url       = {https://mlanthology.org/neurips/2024/hagele2024neurips-scaling/}
+}
+
+@misc{lee,
+    title = "Learning Rate Matters: Vanilla {LoRA} May Suffice for {LLM} Fine-tuning",
+    author = "Lee, Yu-Ang and Ko, Ching-Yun and Chen, Pin-Yu and Yeh, Mi-Yen",
+    year = "2026",
+    note = "arXiv:2602.04998",
+    url = "https://arxiv.org/abs/2602.04998"
+}
+
+@misc{dodge,
+    title = "Fine-Tuning Pretrained Language Models: Weight Initializations, Data Orders, and Early Stopping",
+    author = "Dodge, Jesse and Ilharco, Gabriel and Schwartz, Roy and Farhadi, Ali and Hajishirzi, Hannaneh and Smith, Noah",
+    year = "2020",
+    note = "arXiv:2002.06305",
+    url = "https://arxiv.org/abs/2002.06305"
+}
