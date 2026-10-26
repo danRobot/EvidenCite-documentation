@@ -329,7 +329,7 @@ Cited paper excerpts:               \(\leftarrow\) configuración B
 [<encabezado de sección>] <fragmento 3>
 Citation function:
 \end{alltt}
-A usa el título y el abstract del artículo citado; B, los tres fragmentos de su texto más similares al contexto, recuperados con SciBERT al construir el conjunto de datos. El texto no se normaliza. Con el límite de 1.024 tokens solo se recorta el texto del citado; pasa en 17 instancias de entrenamiento de B (0,8\%) y en ninguna de validación ni de prueba.
+A usa el título y el abstract del artículo citado; B, los tres fragmentos de su texto más similares al contexto, recuperados con SciBERT al construir el conjunto de datos. El texto no se normaliza. A diferencia de SciBERT, un LLM no está sujeto al truncamiento de 512 tokens; en este caso, y para compararlo mejor con SciBERT, el límite se fijó en 1.024 tokens. Solo se recorta el texto del citado; pasa en 17 instancias de entrenamiento de B (0,8\%) y en ninguna de validación ni de prueba.
 
 \textbf{Adaptador.} LoRA \cite{lora} congela cada matriz de pesos $W\in\mathbb{R}^{d_\mathrm{out}\times d_\mathrm{in}}$ y aprende una corrección de rango bajo $\Delta W=(\alpha/r)\,BA$, con $A\in\mathbb{R}^{r\times d_\mathrm{in}}$ y $B\in\mathbb{R}^{d_\mathrm{out}\times r}$; como $B$ empieza en cero, el entrenamiento parte del modelo base. Se usó $r=16$, $\alpha=32$ (escala $\alpha/r=2$) y \emph{dropout} de 0,05 en la rama LoRA. El adaptador va en las siete proyecciones lineales de los 36 bloques ($W_q$, $W_k$, $W_v$ y $W_o$ en la atención; $W_\mathrm{gate}$, $W_\mathrm{up}$ y $W_\mathrm{down}$ en la MLP), 252 matrices: adaptar todas las capas lineales, y no solo la atención, es lo que acerca LoRA al ajuste completo \cite{schulman,qlora}. También se entrena la cabeza, que es nueva ($9d$ parámetros); la base queda congelada en bf16.
 
@@ -395,13 +395,13 @@ TF-IDF favorece A, con una diferencia B$-$A de $-0{,}0377$ en Macro-F1-9. En Sci
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
-\begin{axis}[width=\columnwidth,height=5.2cm,ybar,bar width=12pt,ymin=0,ymax=0.32,ylabel={Macro-F1-9},symbolic x coords={TF-IDF,SciBERT},xtick=data,legend style={at={(0.5,1.02)},anchor=south,legend columns=2,draw=none},ymajorgrids=true,grid style={gray!20},enlarge x limits=0.55]
-\addplot[fill=blue!60,draw=blue!70] coordinates {(TF-IDF,0.1663) (SciBERT,0.2648)};
-\addplot[fill=orange!75,draw=orange!90!black] coordinates {(TF-IDF,0.1286) (SciBERT,0.2585)};
+\begin{axis}[width=\columnwidth,height=5.2cm,ybar,bar width=12pt,ymin=0,ymax=0.32,ylabel={Macro-F1-9},symbolic x coords={TF-IDF,SciBERT,Qwen + LoRA},xtick=data,legend style={at={(0.5,1.02)},anchor=south,legend columns=2,draw=none},ymajorgrids=true,grid style={gray!20},enlarge x limits=0.25]
+\addplot[fill=blue!60,draw=blue!70] coordinates {(TF-IDF,0.1663) (SciBERT,0.2648) (Qwen + LoRA,0.2626)};
+\addplot[fill=orange!75,draw=orange!90!black] coordinates {(TF-IDF,0.1286) (SciBERT,0.2585) (Qwen + LoRA,0.2672)};
 \legend{A,B}
 \end{axis}
 \end{tikzpicture}
-\caption{Comparación A/B. SciBERT: media de tres semillas. El control solo contexto obtiene 0,2649; Qwen+LoRA está pendiente.}\label{fig:bars}
+\caption{Comparación A/B en Macro-F1-9. SciBERT: media de tres semillas; el control solo contexto obtiene 0,2649. Qwen+LoRA: mejor configuración según validación, con una semilla por entrada (A: Qwen3-4B-Base; B: Qwen3-8B-Base).}\label{fig:bars}
 \end{figure}
 
 \begin{table}[t]
@@ -458,13 +458,15 @@ La arquitectura del pipeline en capas desacopladas demostró una alta flexibilid
 
 \section{Próximos pasos y plan de expansión}
 \subsection{Siguiente ciclo: evidencia, cobertura y modelamiento}
-\textbf{Control del presupuesto de evidencia y truncamiento.} Se evaluará la pertinencia de los fragmentos recuperados y se medirá qué proporción sobrevive a la tokenización de 512 tokens. Un presupuesto explícito por fragmento o una clasificación desagregada con combinación de puntajes permitirán comprobar si el recorte mecánico explica parte de la paridad observada entre A y B. Estas alternativas se seleccionarán en validación; los puntajes de similitud semántica orientan la selección, pero no reemplazan métricas de recuperación con referencias verificadas.
+\textbf{Control del presupuesto de evidencia y truncamiento.} Se evaluará la pertinencia de los fragmentos recuperados y se medirá qué proporción sobrevive a la tokenización de 512 tokens. En los LLM, el límite de tokens pasará a ser el máximo de contexto del modelo. Un presupuesto explícito por fragmento o una clasificación desagregada con combinación de puntajes permitirán comprobar si el recorte mecánico explica parte de la paridad observada entre A y B. Estas alternativas se seleccionarán en validación; los puntajes de similitud semántica orientan la selección, pero no reemplazan métricas de recuperación con referencias verificadas.
 
 \textbf{Expansión y balanceo hacia 18.000 pares.} Se avanzará hacia la consolidación del corpus balanceado de 18.000 instancias pareadas (2.000 por función). La ampliación prioriza Gap, Improvement, Originator y Basis, cuyos déficits son mayores frente a clases saturadas como Further Reading o abundantes como Background. Se reportarán rigurosamente las tasas de admisión y descarte por fuente y función, distinguiendo la ausencia de texto completo, la ambigüedad en la resolución de identidad y la duplicación documental.
 
 \textbf{Supervisión débil mediante Inferencia de Lenguaje Natural (NLI).} Para subsanar el déficit de las clases de bajo recall léxico sin incurrir en costos inviables de anotación manual, se integró supervisión débil basada en \texttt{DeBERTa-v3-base} (86M parámetros, preentrenado en NLI). A partir de premisas contextuales y de hipótesis discursivas derivadas de las definiciones canónicas \cite{Lyu2021}, el modelo predice la implicación textual de cada función. El protocolo se calibró empíricamente ante la sobre-abstención de los umbrales teóricos iniciales, fijando una probabilidad mínima $P(\text{top1}) \ge 0{,}70$, un margen de separación con la segunda hipótesis $\Delta \ge 0{,}15$ y temperatura $\tau = 0{,}7$. En un espacio de 9 hipótesis ($P_{\text{azar}} \approx 11{,}1\%$), $P \ge 0{,}70$ exige más de seis veces la probabilidad aleatoria y confiere al top-1 una ventaja superior a 18 veces el promedio de las hipótesis rivales ($\le 3{,}75\%$). Los resultados preliminares muestran que este mecanismo permite incorporar más de 5.000 instancias adicionales en clases complejas (\textit{Originator}, \textit{Basis}, \textit{Application} y \textit{Gap}) bajo control de saturación de cupos.
 
 \textbf{Reevaluación comparativa de modelos.} Una vez congelada la versión ampliada del conjunto con particiones agrupadas anti-fuga y balance de clases, se reejecutarán TF-IDF, SciBERT y el ajuste de bajo rango con Qwen+LoRA \cite{lora} sobre las nueve funciones objetivo. No se compararán como equivalentes los resultados del conjunto inicial y del ampliado: varían la taxonomía, la procedencia, el volumen y la distribución de clases.
+
+\textbf{Exploración de modelos.} Se explorarán versiones más modernas y/o posiblemente mejores que Qwen3, de la misma familia o de otras de pesos abiertos, ajustadas a la memoria de la GPU de 96\,GB; se evaluarán con el mismo protocolo y se elegirán en validación.
 
 \textbf{Validación humana en la partición de prueba.} La propuesta original contemplaba preetiquetado asistido y validación humana de la prueba. Dado que el conjunto actual combina anotaciones heredadas, reglas léxicas y asignación por NLI, se mantiene la revisión humana del conjunto de prueba como trabajo pendiente. Gracias a la trazabilidad del pipeline, las instancias de prueba provenientes de asignación automática serán auditadas y validadas manualmente antes de la evaluación final, garantizando una partición de prueba de alta fidelidad en las nueve funciones canónicas.
 
