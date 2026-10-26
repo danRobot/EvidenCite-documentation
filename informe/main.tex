@@ -5,6 +5,7 @@
 \usepackage[margin=1.8cm]{geometry}
 \usepackage{lmodern,microtype,booktabs,tabularx,array,amsmath,graphicx,xcolor,tikz,pgfplots}
 \usepackage{amssymb,alltt}
+\usepackage{svg}
 \usetikzlibrary{arrows.meta,positioning}
 \pgfplotsset{compat=1.18}
 \usepackage[font=small,labelfont=bf]{caption}
@@ -339,7 +340,7 @@ Cada matriz adaptada suma $r(d_\mathrm{in}+d_\mathrm{out})$ parámetros, así qu
 
 \textbf{Selección.} Se evalúa la validación dos veces por época; tras 5 evaluaciones seguidas sin mejora (2,5 épocas), el entrenamiento se detiene y se restauran los pesos del mejor punto. El criterio es el F1 macro de las 7 clases presentes en validación, que ordena igual que el Macro-F1-9. La prueba se evalúa una sola vez. Se reportan el Macro-F1-9 (las 9 clases; las ausentes cuentan 0) y el Macro-F1-5 (las 5 de prueba), con intervalo bootstrap del 95\%; en prueba, Macro-F1-9 = $5/9\cdot{}$Macro-F1-5.
 
-\textbf{Corridas.} Se planeó una grilla de $2\times2\times3=12$ corridas: modelo (4B y 8B), entrada (A y B) y tasa de aprendizaje ($5\times10^{-5}$, $10^{-4}$ y $2\times10^{-4}$), que se barre en cada combinación porque la tasa óptima cambia con la configuración \cite{lee}. Lo demás queda fijo, con semilla 42. Se completaron 11; falta 8B-B con $2\times10^{-4}$ (Tabla~\ref{tab:qwen}).
+\textbf{Corridas.} Se planeó una grilla de $2\times2\times3=12$ corridas: modelo (4B y 8B), entrada (A y B) y tasa de aprendizaje ($5\times10^{-5}$, $10^{-4}$ y $2\times10^{-4}$), que se barre en cada combinación porque la tasa óptima cambia con la configuración \cite{lee}. Lo demás queda fijo, con semilla 42. Se completaron las 12 (Tabla~\ref{tab:qwen}).
 
 
 \begin{table*}[t]
@@ -421,7 +422,7 @@ B $-$ TF-IDF B & $0,1298$ & [$0,0956$; $0,1746$]\\\bottomrule
 Los intervalos por documento para SciBERT frente a TF-IDF quedan por encima de cero en A y B. En cambio, los contrastes entre A, B y contexto incluyen cero (Tabla~\ref{tab:ci}). Esto respalda una ventaja de las configuraciones de SciBERT evaluadas frente al baseline sobre este test, pero no una superioridad concluyente entre sus fuentes de información.
 
 \subsection{Barrido de Qwen+LoRA}
-En prueba, el Macro-F1-5 va de 0,452 a 0,516 (Macro-F1-9, de 0,251 a 0,287) y los intervalos del 95\% de todas las corridas se solapan. Ningún factor tiene un efecto claro: entre pares que solo difieren en ese factor, B supera a A por 0,009 en promedio y 8B a 4B por 0,015, ambos con signo cambiante, y la tasa no sigue una tendencia. Por validación se elige 4B-A con $10^{-4}$, que en prueba da 0,473 de Macro-F1-5 y 0,263 de Macro-F1-9. La mejor en prueba, 8B-B con $10^{-4}$ (0,516 y 0,287), no puede elegirse por prueba sin sesgar el resultado. El mejor punto llegó entre las épocas 2 y 6, siempre antes del descenso de la tasa. Por clase, Background, Uses y Comparison quedan entre 0,56 y 0,73 de F1 en prueba; Extends (0,09--0,38) y Motivation (0,00--0,27), con 20 y 29 ejemplos, pesan el 40\% del Macro-F1-5 y concentran la mayor parte de la variación entre corridas. Con una sola semilla, estas diferencias no se distinguen de la variación entre semillas \cite{dodge}.
+En prueba, el Macro-F1-5 va de 0,423 a 0,516 (Macro-F1-9, de 0,235 a 0,287) y los intervalos del 95\% de todas las corridas se solapan. Ningún factor tiene un efecto claro: entre pares que solo difieren en ese factor, la diferencia promedio es menor que 0,001 tanto de B frente a A como de 8B frente a 4B, con signo cambiante entre pares, y la tasa no sigue una tendencia. Por validación se elige 4B-A con $10^{-4}$, que en prueba da 0,473 de Macro-F1-5 y 0,263 de Macro-F1-9. La mejor en prueba, 8B-B con $10^{-4}$ (0,516 y 0,287), no puede elegirse por prueba sin sesgar el resultado. El mejor punto llegó entre las épocas 2 y 6, siempre antes del descenso de la tasa. Por clase, Background, Uses y Comparison quedan entre 0,56 y 0,73 de F1 en prueba; Extends (0,09--0,38) y Motivation (0,00--0,27), con 20 y 29 ejemplos, pesan el 40\% del Macro-F1-5 y concentran la mayor parte de la variación entre corridas. Con una sola semilla, estas diferencias no se distinguen de la variación entre semillas \cite{dodge}.
 
 \begin{table}[t]
 \centering\footnotesize
@@ -432,7 +433,7 @@ Modelo, entrada & $5\times10^{-5}$ & $10^{-4}$ & $2\times10^{-4}$\\\midrule
 Qwen3-4B-Base, A & 0,413/0,462 & \textbf{0,492/0,473} & 0,401/0,488\\
 Qwen3-4B-Base, B & 0,414/0,454 & 0,420/0,455 & 0,408/0,503\\
 Qwen3-8B-Base, A & 0,428/0,491 & 0,408/0,452 & 0,368/0,467\\
-Qwen3-8B-Base, B & 0,491/0,481 & 0,476/0,516 & --\\\bottomrule
+Qwen3-8B-Base, B & 0,491/0,481 & 0,476/0,516 & 0,453/0,423\\\bottomrule
 \end{tabular}
 \end{table}
 
@@ -466,7 +467,7 @@ La arquitectura del pipeline en capas desacopladas demostró una alta flexibilid
 
 \textbf{Reevaluación comparativa de modelos.} Una vez congelada la versión ampliada del conjunto con particiones agrupadas anti-fuga y balance de clases, se reejecutarán TF-IDF, SciBERT y el ajuste de bajo rango con Qwen+LoRA \cite{lora} sobre las nueve funciones objetivo. No se compararán como equivalentes los resultados del conjunto inicial y del ampliado: varían la taxonomía, la procedencia, el volumen y la distribución de clases.
 
-\textbf{Exploración de modelos.} Se explorarán versiones más modernas y/o posiblemente mejores que Qwen3, de la misma familia o de otras de pesos abiertos, ajustadas a la memoria de la GPU de 96\,GB; se evaluarán con el mismo protocolo y se elegirán en validación.
+\textbf{Exploración de modelos.} Se explorarán versiones más modernas y/o posiblemente mejores que Qwen3, de la misma familia o de otras de pesos abiertos, ajustadas a la memoria de la GPU de 96\,GB; se evaluarán con el mismo protocolo y se elegirán en validación, se probaran variantes de LoRa como QLoRa\cite{Dettmers2023} etc.
 
 \textbf{Validación humana en la partición de prueba.} La propuesta original contemplaba preetiquetado asistido y validación humana de la prueba. Dado que el conjunto actual combina anotaciones heredadas, reglas léxicas y asignación por NLI, se mantiene la revisión humana del conjunto de prueba como trabajo pendiente. Gracias a la trazabilidad del pipeline, las instancias de prueba provenientes de asignación automática serán auditadas y validadas manualmente antes de la evaluación final, garantizando una partición de prueba de alta fidelidad en las nueve funciones canónicas.
 
@@ -475,5 +476,12 @@ La arquitectura del pipeline en capas desacopladas demostró una alta flexibilid
 % \bibliography{referencias}
 \bibliography{referencias_final}
 }
+
+%\appendix
+%\onecolumn
+% En una columna, las tablas y figuras del anexo se colocan donde aparecen (si no, quedan sobre sus títulos)
+%\renewenvironment{table*}[1][]{\begin{table}[!ht]}{\end{table}}
+%\renewenvironment{figure*}[1][]{\begin{figure}[!ht]}{\end{figure}}
+%\include{anexo}
 
 \end{document}
