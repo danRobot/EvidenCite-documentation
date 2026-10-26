@@ -1,0 +1,63 @@
+% Anexo generado por analizar_resultados.ipynb (celda 9). Sin preámbulo: se añade con \include{anexo}.
+% Requiere graphicx, array, booktabs y svg; test_con_ic95.svg va en la misma carpeta que este archivo.
+\section{Resumen de hiperparámetros por corrida}\label{anx:resumen}
+\begin{table*}[t]
+\centering\scriptsize
+\caption{Configuración, entrenamiento y curva de pérdida en validación de cada corrida.}\label{tab:anx-resumen}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}>{\raggedright\arraybackslash}p{1.7cm}}
+\toprule
+Campo & \rotatebox{90}{Qwen3-4B-Base\_lora\_A\_lr1e-4} & \rotatebox{90}{Qwen3-4B-Base\_lora\_A\_lr2e-4} & \rotatebox{90}{Qwen3-4B-Base\_lora\_A\_lr5e-5} & \rotatebox{90}{Qwen3-4B-Base\_lora\_B\_lr1e-4} & \rotatebox{90}{Qwen3-4B-Base\_lora\_B\_lr2e-4} & \rotatebox{90}{Qwen3-4B-Base\_lora\_B\_lr5e-5} & \rotatebox{90}{Qwen3-8B-Base\_lora\_A\_lr1e-4} & \rotatebox{90}{Qwen3-8B-Base\_lora\_A\_lr2e-4} & \rotatebox{90}{Qwen3-8B-Base\_lora\_A\_lr5e-5} & \rotatebox{90}{Qwen3-8B-Base\_lora\_B\_lr1e-4} & \rotatebox{90}{Qwen3-8B-Base\_lora\_B\_lr2e-4} & \rotatebox{90}{Qwen3-8B-Base\_lora\_B\_lr5e-5} \\
+\midrule
+modelo & Qwen/\allowbreak{}Qwen3-4B-Base & Qwen/\allowbreak{}Qwen3-4B-Base & Qwen/\allowbreak{}Qwen3-4B-Base & Qwen/\allowbreak{}Qwen3-4B-Base & Qwen/\allowbreak{}Qwen3-4B-Base & Qwen/\allowbreak{}Qwen3-4B-Base & Qwen/\allowbreak{}Qwen3-8B-Base & Qwen/\allowbreak{}Qwen3-8B-Base & Qwen/\allowbreak{}Qwen3-8B-Base & Qwen/\allowbreak{}Qwen3-8B-Base & Qwen/\allowbreak{}Qwen3-8B-Base & Qwen/\allowbreak{}Qwen3-8B-Base \\
+variante LoRA & lora & lora & lora & lora & lora & lora & lora & lora & lora & lora & lora & lora \\
+configuración & A & A & A & B & B & B & A & A & A & B & B & B \\
+lr & 0,0001 & 0,0002 & 5e-05 & 0,0001 & 0,0002 & 5e-05 & 0,0001 & 0,0002 & 5e-05 & 0,0001 & 0,0002 & 5e-05 \\
+scheduler & wsd & wsd & wsd & wsd & wsd & wsd & wsd & wsd & wsd & wsd & wsd & wsd \\
+épocas planeadas & 8 & 8 & 8 & 8 & 8 & 8 & 8 & 8 & 8 & 8 & 8 & 8 \\
+lote efectivo & 16 & 16 & 16 & 16 & 16 & 16 & 16 & 16 & 16 & 16 & 16 & 16 \\
+época del mejor macro-F1 dev & 6,0 & 3,0 & 5,0 & 3,0 & 3,5 & 3,0 & 2,0 & 2,0 & 2,0 & 5,5 & 4,5 & 5,5 \\
+pasos entrenados /\allowbreak{} planeados & 1128 /\allowbreak{} 1128 & 775 /\allowbreak{} 1128 & 1057 /\allowbreak{} 1128 & 775 /\allowbreak{} 1128 & 846 /\allowbreak{} 1128 & 775 /\allowbreak{} 1128 & 634 /\allowbreak{} 1128 & 634 /\allowbreak{} 1128 & 634 /\allowbreak{} 1128 & 1128 /\allowbreak{} 1128 & 987 /\allowbreak{} 1128 & 1128 /\allowbreak{} 1128 \\
+parada temprana & no & sí & sí & sí & sí & sí & sí & sí & sí & sí & sí & sí \\
+época de la pérdida dev mínima & 3,0 & 3,0 & 3,0 & 2,0 & 3,5 & 3,0 & 2,0 & 2,0 & 2,0 & 3,0 & 3,0 & 3,0 \\
+pérdida dev mínima & 0,868 & 0,888 & 0,899 & 0,882 & 0,893 & 0,805 & 0,824 & 0,919 & 0,902 & 0,867 & 0,845 & 0,854 \\
+pérdida dev al final & 1,379 & 1,354 & 1,827 & 1,634 & 1,541 & 1,148 & 1,148 & 1,556 & 1,024 & 1,651 & 2,633 & 1,841 \\
+subida de la pérdida dev desde el mínimo & +59\% & +53\% & +103\% & +85\% & +73\% & +43\% & +39\% & +69\% & +14\% & +90\% & +212\% & +116\% \\
+minutos de entrenamiento & 15,4 & 10,6 & 14,5 & 17,1 & 18,7 & 17,1 & 12,4 & 12,3 & 12,4 & 36,1 & 31,6 & 36,1 \\
+memoria pico (GB) & 32,8 & 32,8 & 32,8 & 37,9 & 37,9 & 37,9 & 46,3 & 46,3 & 46,3 & 52,8 & 52,8 & 52,8 \\
+GPU & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition & NVIDIA RTX PRO 6000 Blackwell Server Edition \\
+parámetros entrenables & 0,82 \% & 0,82 \% & 0,82 \% & 0,82 \% & 0,82 \% & 0,82 \% & 0,57 \% & 0,57 \% & 0,57 \% & 0,57 \% & 0,57 \% & 0,57 \% \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+
+\section{Todas las corridas}\label{anx:corridas}
+\begin{table*}[t]
+\centering\scriptsize
+\caption{Todas las corridas: configuración y métricas de validación (dev) y de prueba (test). IC95: intervalo de confianza del 95\,\% del Macro-F1-5 de test.}\label{tab:anx-corridas}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llllrrrrrrrrr}
+\toprule
+Corrida & modelo & config & variante & lr & mejor época & F1-macro-9 dev & F1-macro-5 dev & F1-macro-9 test & F1-macro-5 test & IC95 F1-macro-5 test inf. & IC95 F1-macro-5 test sup. & accuracy test \\
+\midrule
+Qwen3-4B-Base\_lora\_A\_lr5e-5 & Qwen3-4B-Base & A & lora & 5e-05 & 5,0 & 0,413 & 0,543 & 0,256 & 0,462 & 0,402 & 0,516 & 0,609 \\
+Qwen3-4B-Base\_lora\_A\_lr1e-4 & Qwen3-4B-Base & A & lora & 1e-04 & 6,0 & 0,492 & 0,553 & 0,263 & 0,473 & 0,420 & 0,523 & 0,582 \\
+Qwen3-4B-Base\_lora\_A\_lr2e-4 & Qwen3-4B-Base & A & lora & 2e-04 & 3,0 & 0,401 & 0,522 & 0,271 & 0,488 & 0,436 & 0,533 & 0,654 \\
+Qwen3-4B-Base\_lora\_B\_lr5e-5 & Qwen3-4B-Base & B & lora & 5e-05 & 3,0 & 0,414 & 0,546 & 0,252 & 0,454 & 0,397 & 0,506 & 0,626 \\
+Qwen3-4B-Base\_lora\_B\_lr1e-4 & Qwen3-4B-Base & B & lora & 1e-04 & 3,0 & 0,420 & 0,581 & 0,253 & 0,455 & 0,403 & 0,510 & 0,632 \\
+Qwen3-4B-Base\_lora\_B\_lr2e-4 & Qwen3-4B-Base & B & lora & 2e-04 & 3,5 & 0,408 & 0,535 & 0,279 & 0,503 & 0,446 & 0,551 & 0,636 \\
+Qwen3-8B-Base\_lora\_A\_lr5e-5 & Qwen3-8B-Base & A & lora & 5e-05 & 2,0 & 0,428 & 0,570 & 0,273 & 0,491 & 0,428 & 0,553 & 0,636 \\
+Qwen3-8B-Base\_lora\_A\_lr1e-4 & Qwen3-8B-Base & A & lora & 1e-04 & 2,0 & 0,408 & 0,541 & 0,251 & 0,452 & 0,401 & 0,508 & 0,638 \\
+Qwen3-8B-Base\_lora\_A\_lr2e-4 & Qwen3-8B-Base & A & lora & 2e-04 & 2,0 & 0,368 & 0,463 & 0,260 & 0,467 & 0,402 & 0,526 & 0,619 \\
+Qwen3-8B-Base\_lora\_B\_lr5e-5 & Qwen3-8B-Base & B & lora & 5e-05 & 5,5 & 0,491 & 0,524 & 0,267 & 0,481 & 0,425 & 0,536 & 0,597 \\
+Qwen3-8B-Base\_lora\_B\_lr1e-4 & Qwen3-8B-Base & B & lora & 1e-04 & 5,5 & 0,476 & 0,542 & 0,287 & 0,516 & 0,460 & 0,570 & 0,626 \\
+Qwen3-8B-Base\_lora\_B\_lr2e-4 & Qwen3-8B-Base & B & lora & 2e-04 & 4,5 & 0,453 & 0,497 & 0,235 & 0,423 & 0,370 & 0,473 & 0,527 \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+
+\begin{figure*}[t]
+\centering
+\includesvg[width=0.7\textwidth]{test_con_ic95}
+\caption{Macro-F1-5 de test por corrida (punto) con su intervalo de confianza del 95\,\%. Si los intervalos se solapan, la diferencia puede ser ruido.}\label{fig:anx-ic}
+\end{figure*}
